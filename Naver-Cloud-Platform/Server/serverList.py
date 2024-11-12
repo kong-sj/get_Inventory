@@ -1,25 +1,12 @@
 import sys
 import os
-import hashlib
-import hmac
-import base64
-import requests
 import time
 import json
+sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
+from Auth.auth_Key import ncloud_accesskey, ncloud_secretkey
+from Auth.signature import make_signature
+from send_request import send_request
 
-def	make_signature(access_key, secret_key, method, uri, timestamp):
-    timestamp = str(timestamp)
-    secret_key = bytes(secret_key, 'UTF-8')
-    message = method + " " + uri + "\n" + timestamp + "\n" + access_key
-    message = bytes(message, 'UTF-8')
-    signingKey = base64.b64encode(hmac.new(secret_key, message, digestmod=hashlib.sha256).digest()).decode()
-    return signingKey
-
-def send_request(url, headers, method):
-    r = requests.request(method, url, headers=headers)
-    if r.status_code != 200:
-        print('ERROR! {} {}'.format(r.status_code, r.text))
-    return r.text
   
 def call_serverlist():
     # unix timestamp 설정
@@ -27,8 +14,6 @@ def call_serverlist():
     timestamp = str(timestamp)
 
     # Ncloud API Key 설정
-    ncloud_accesskey = "ncp_iam_BFASKR2l12lIt7545zGl"
-    ncloud_secretkey = "ncp_iam_BFKSKRDJCq8wWVywTdxPlBNrsvAingMfBd"
 
     # 암호화 문자열 생성을 위한 기본값 설정
     method = "GET"

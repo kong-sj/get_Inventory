@@ -4,7 +4,7 @@ def main(args):
     import base64
     import time
     import requests
-    from auth_Key import ncloud_accesskey, ncloud_secretkey
+    from Auth.auth_Key import ncloud_accesskey, ncloud_secretkey
 
     def	make_signature(access_key, secret_key, method, uri, timestamp):
         timestamp = str(timestamp)
