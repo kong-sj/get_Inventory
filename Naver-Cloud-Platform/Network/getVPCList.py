@@ -36,28 +36,39 @@ def vpc_List():
     vpc_List_Response = send_request(url=url + path, headers=http_header, method=method)
     real_data = json.loads(vpc_List_Response)
     vpc_list = real_data['getVpcListResponse']['vpcList']
-    extracted_vpc_list = []
+    extracted_vpc_list = {}
+    
+    
     for vpc_List in vpc_list:
         vpc_no = vpc_List.get("vpcNo")  # 'subnetName' 값 추출
         vpc_name = vpc_List.get("vpcName")  # 'subnet' 값 추출
         vpc_cidr = vpc_List.get("ipv4CidrBlock")
         vpc_region = vpc_List.get('regionCode')
-        extracted_vpc_list.append({
-          "vpc_no": vpc_no,  # 'subnetName' 값 추출
-          "vpc_name": vpc_name,  # 'subnet' 값 추출
+        
+        extracted_vpc_list[vpc_no] = {
+          "vpc_name": vpc_name,  # 'subnetName' 값 추출
           "vpc_cidr": vpc_cidr,
           "vpc_region": vpc_region
-        })
+        }
     return extracted_vpc_list
     #데이터를 파이썬 딕션어리 데이터 타입으로 저장
     # response_txt = json.loads(response)
     # return response_txt
     
-vpcno = 25547
-totalRows = 3
+# def vpc_Name_Return(vpc_no):
+  
+def vpc_Name_Return(vpc_no):
+  response = vpc_List()
+  vpc = response.get[vpc_no]
+  if vpc:
+      return vpc["vpc_name"]
+  return None
+# vpcno = 25547
+# totalRows = 3
 data = vpc_List()
-for i in range(totalRows):
-  vpcNo = data[i]['vpc_no']
-  vpcname = data[i]['vpc_name']
-  if vpcNo == vpcno:
-    print(vpcname)
+print(data)
+# for i in range(totalRows):
+#   vpcNo = data[i]['vpc_no']
+#   vpcname = data[i]['vpc_name']
+#   if vpcNo == vpcno:
+#     print(vpcname)

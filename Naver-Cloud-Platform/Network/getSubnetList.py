@@ -34,33 +34,34 @@ def get_Subnet_List():
     real_data = json.loads(subnet_List_Response)
     
     response = real_data["getSubnetListResponse"]
-    print(response)
     subnet_list = response.get("subnetList", [])
-    extracted_subnet = []
+    extracted_subnet = {}
     
-    # #VPC No 호출
-    # resquest_Vpc_list = vpc_List()
-    # response_Vpc_list = resquest_Vpc_list["getVpcListResponse"]
-    # vpc_list = response_Vpc_list("vpcLlist", [])
-    # vpc_No_List = [vpc["vpcNo"] for vpc in vpc_list]
-    # print(vpc_No_List)
     
     for subnet in subnet_list:
-        # vpc_no = subnet.get("vpcNo")  # 'vpcNo' 값 추출
-        # if vpc_no == "25547":  # 문자열이므로 따옴표 사용
-        subnet_name = subnet.get("subnetName")  # 'subnetName' 값 추출
-        subnet_cidr = subnet.get("subnet")  # 'subnet' 값 추출
+        subnet_no = subnet.get("subnetNo")
+        subnet_name = subnet.get("subnetName")
+        subnet_cidr = subnet.get("subnet")
         subnet_type = subnet.get("subnetType")
         subnet_zone = subnet.get("zoneCode")
-        extracted_subnet.append({
-          "subnet_name": subnet_name,  # 'subnetName' 값 추출
-          "subnet_cidr": subnet_cidr,  # 'subnet' 값 추출
-          "subnet_type": subnet_type,
-          "subnet_zone": subnet_zone
-      })
-    #데이터를 파이썬 딕션어리 데이터 타입으로 저장
-    # response_txt = json.loads(response)
-    # return response_txt
+
+        # subnet_no를 키로 사용
+        extracted_subnet[subnet_no] = {
+            "subnet_name": subnet_name,
+            "subnet_cidr": subnet_cidr,
+            "subnet_type": subnet_type,
+            "subnet_zone": subnet_zone
+        }
     return extracted_subnet
-subnet_data = get_Subnet_List()
-print(subnet_data)
+  
+def subnet_Name_Return(subnet_no):
+    response = get_Subnet_List()
+    subnet = response.get(subnet_no)  # 딕셔너리에서 subnet_no로 직접 접근
+    if subnet:
+        return subnet["subnet_name"]
+    return None
+
+
+
+subnet = subnet_Name_Return("40569")
+print(subnet)

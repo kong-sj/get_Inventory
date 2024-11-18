@@ -29,6 +29,11 @@ for item in data_route:
     })
     print(excel_data)
 
+for item in data_server:
+  excel_data.append({
+    "Server Name": item['']
+  })
+
 # DataFrame으로 변환
 df_network = pd.DataFrame(excel_data)
 
