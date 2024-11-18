@@ -8,7 +8,7 @@ from Auth.signature import make_signature
 from send_request import send_request
 
   
-def call_serverlist():
+def get_Server_List():
     # unix timestamp 설정
     timestamp = int(time.time() * 1000)
     timestamp = str(timestamp)
@@ -38,4 +38,3 @@ def call_serverlist():
     #데이터를 파이썬 딕션어리 데이터 타입으로 저장
     # response_txt = json.loads(response)
     # return response_txt
-print(call_serverlist())

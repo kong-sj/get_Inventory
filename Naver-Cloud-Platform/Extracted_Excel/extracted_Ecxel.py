@@ -3,11 +3,12 @@ import sys
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 import pandas as pd
 from Network import getSubnetList, getRouteTable
+from Server import getServerList
 
 # Sample data to be exported
-data_subnet = getSubnetList.subnet_List()
+data_subnet = getSubnetList.get_Subnet_List()
 data_route = getRouteTable.get_Route_List()
-
+data_server = getServerList.get_Server_List()
 
 # 데이터를 엑셀에 맞게 변환 (subnet_type 내에 있는 값들을 풀어서 저장)
 excel_data = []
@@ -27,7 +28,6 @@ for item in data_route:
         'Target_name': item['target_name']
     })
     print(excel_data)
-
 
 # DataFrame으로 변환
 df_network = pd.DataFrame(excel_data)

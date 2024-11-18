@@ -8,7 +8,7 @@ from Auth.signature import make_signature
 from send_request import send_request
 from Auth.auth_Key import ncloud_accesskey, ncloud_secretkey
 
-def subnet_List():
+def get_Subnet_List():
     # unix timestamp 설정
     timestamp = int(time.time() * 1000)
     timestamp = str(timestamp)
@@ -62,5 +62,5 @@ def subnet_List():
     # response_txt = json.loads(response)
     # return response_txt
     return extracted_subnet
-subnet_data = subnet_List()
+subnet_data = get_Subnet_List()
 print(subnet_data)
