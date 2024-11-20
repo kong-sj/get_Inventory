@@ -60,8 +60,6 @@ def subnet_Name_Return(subnet_no):
     if subnet:
         return subnet["subnet_name"]
     return None
-
-
-
-subnet = subnet_Name_Return("40569")
-print(subnet)
+  
+subnet_data = subnet_Name_Return("40569")
+print(subnet_data)

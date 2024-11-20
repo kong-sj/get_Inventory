@@ -59,14 +59,11 @@ def vpc_List():
   
 def vpc_Name_Return(vpc_no):
   response = vpc_List()
-  vpc = response.get[vpc_no]
+  vpc = response.get(vpc_no)
   if vpc:
       return vpc["vpc_name"]
   return None
-# vpcno = 25547
-# totalRows = 3
-data = vpc_List()
-print(data)
+
 # for i in range(totalRows):
 #   vpcNo = data[i]['vpc_no']
 #   vpcname = data[i]['vpc_name']

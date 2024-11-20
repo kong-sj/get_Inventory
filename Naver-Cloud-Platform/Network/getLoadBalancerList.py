@@ -44,7 +44,8 @@ def LB_List():
         LB_Network_Type = LB_List.get("loadBalancerNetworkType")
         LB_Throughput_Type = LB_List.get("throughputType")
         LB_VPC_No = LB_List.get("vpcNo")
-        LB_Subnet_no = LB_List.get("loadBalancerSubnetList")          
+        LB_Subnet_no = LB_List.get("loadBalancerSubnetList")
+        LV_VPC_Name =  
         extracted_lb_list.append({
           "LB_name": LB_name,  # 'subnetName' 값 추출
           "LB_IP": LB_IP,  # 'subnet' 값 추출

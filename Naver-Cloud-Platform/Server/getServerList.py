@@ -63,10 +63,14 @@ def get_Server_List():
           "Memory": memSize,
           "Key Name": pemKeyName,
           "vpc_name": vpc_name,
-          "subnet_name": subnet_name
+          "subnet_name": subnet_name,
+          "NIC_List": nic_list
           
         })
     return real_data
     #데이터를 파이썬 딕션어리 데이터 타입으로 저장
     # response_txt = json.loads(response)
     # return response_txt
+
+data_svr_list = get_Server_List()
+print(data_svr_list)
