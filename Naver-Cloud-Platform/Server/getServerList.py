@@ -67,7 +67,7 @@ def get_Server_List():
           "NIC_List": nic_list
           
         })
-    return real_data
+    return extracted_server
     #데이터를 파이썬 딕션어리 데이터 타입으로 저장
     # response_txt = json.loads(response)
     # return response_txt
