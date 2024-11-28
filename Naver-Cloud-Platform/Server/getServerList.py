@@ -10,6 +10,7 @@ from Network.getVPCList import vpc_Name_Return
 from Network.getSubnetList import subnet_Name_Return
 from Network.getNetworkInterfaceList import NIC_Ip_Return
 from Storage.getStorageInstance import get_BlockStorageInstnace
+from getServerImageProductList import get_OS_Release
 
 def get_Server_List():
     # unix timestamp 설정
@@ -54,6 +55,8 @@ def get_Server_List():
         spec_Code = server.get("serverSpecCode")
         block_storage =  get_BlockStorageInstnace(server_name)
         hypervisor_Type = server.get("hypervisorType")
+        server_image_productCode = server.get("serverImageProductCode")
+        os_release_name = get_OS_Release(server_image_productCode)
         extracted_server.append({
           "vpc_name": vpc_name,
           "subnet_name": subnet_name,
@@ -65,7 +68,8 @@ def get_Server_List():
           "Memory": memSize,
           "Key Name": pemKeyName,
           "Block Storage": block_storage,
-          "Hypervisor_Type": hypervisor_Type
+          "Hypervisor_Type": hypervisor_Type,
+          "OS_Release": os_release_name
         })
     return extracted_server
 data_svr_list = get_Server_List()
