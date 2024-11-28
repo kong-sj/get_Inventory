@@ -3,10 +3,9 @@ import os
 import time
 import json
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
-
 from Auth.signature import make_signature
 from send_request import send_request
-from Auth.auth_Key import ncloud_accesskey, ncloud_secretkey
+from Auth.auth_Key import ncloud_accesskey, ncloud_secretkey, public
 
 
 
@@ -20,10 +19,10 @@ def vpc_List():
     method = "GET"
 
     # API 서버 정보
-    url = "https://fin-ncloud.apigw.fin-ntruss.com"
+    url = public
 
     # API URL 서버 목록 조회
-    path = "/vpc/v2/getVpcList?regionCode=FKR&responseFormatType=json"
+    path = "/vpc/v2/getVpcList?regionCode=KR&responseFormatType=json"
 
     # http 호출 헤더값 설정
     http_header = {
@@ -63,9 +62,3 @@ def vpc_Name_Return(vpc_no):
   if vpc:
       return vpc["vpc_name"]
   return None
-
-# for i in range(totalRows):
-#   vpcNo = data[i]['vpc_no']
-#   vpcname = data[i]['vpc_name']
-#   if vpcNo == vpcno:
-#     print(vpcname)

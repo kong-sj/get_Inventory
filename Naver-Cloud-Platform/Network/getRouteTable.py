@@ -6,15 +6,15 @@ from collections import defaultdict
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 from Auth.signature import make_signature
 from send_request import send_request
-from Auth.auth_Key import ncloud_accesskey, ncloud_secretkey
+from Auth.auth_Key import ncloud_accesskey, ncloud_secretkey, public
 from pprint import pprint
 
 
 def get_routeTable_List():
     timestamp = str(int(time.time() * 1000))
     method = "GET"
-    url = "https://fin-ncloud.apigw.fin-ntruss.com"
-    path = "/vpc/v2/getRouteTableList?regionCode=FKR&responseFormatType=json"
+    url = public
+    path = "/vpc/v2/getRouteTableList?regionCode=KR&responseFormatType=json"
 
     http_header = {
         'x-ncp-apigw-timestamp': timestamp,
@@ -42,8 +42,8 @@ def get_route_Table_Subnet_List():
         route_no = route["route_no"]
         timestamp = str(int(time.time() * 1000))
         method = "GET"
-        url = "https://fin-ncloud.apigw.fin-ntruss.com"
-        path = f"/vpc/v2/getRouteTableSubnetList?regionCode=FKR&responseFormatType=json&routeTableNo={route_no}"
+        url = public
+        path = f"/vpc/v2/getRouteTableSubnetList?regionCode=KR&responseFormatType=json&routeTableNo={route_no}"
 
         http_header = {
             'x-ncp-apigw-timestamp': timestamp,
@@ -74,8 +74,8 @@ def get_Route_List():
         vpc_no = data["vpc_no"]
         timestamp = str(int(time.time() * 1000))
         method = "GET"
-        url = "https://fin-ncloud.apigw.fin-ntruss.com"
-        path = f"/vpc/v2/getRouteList?regionCode=FKR&responseFormatType=json&routeTableNo={route_no}&vpcNo={vpc_no}"
+        url = public
+        path = f"/vpc/v2/getRouteList?regionCode=KR&responseFormatType=json&routeTableNo={route_no}&vpcNo={vpc_no}"
 
         http_header = {
             'x-ncp-apigw-timestamp': timestamp,

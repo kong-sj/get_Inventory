@@ -8,7 +8,7 @@ from send_request import send_request
 from Auth.auth_Key import ncloud_accesskey, ncloud_secretkey, public
 
 
-def NIC_Ip_Return(nic_no):
+def get_BlockStorageInstnace(bs_name):
         # unix timestamp 설정
     timestamp = int(time.time() * 1000)
     timestamp = str(timestamp)
@@ -20,7 +20,7 @@ def NIC_Ip_Return(nic_no):
     url = public
 
     # API URL 서버 목록 조회
-    path = f"/vserver/v2/getNetworkInterfaceDetail?regionCode=KR&responseFormatType=json&networkInterfaceNo={nic_no}"
+    path = f"/vserver/v2/getBlockStorageInstanceList?regionCode=KR&responseFormatType=json&serverName={bs_name}"
 
     # http 호출 헤더값 설정
     http_header = {
@@ -31,14 +31,19 @@ def NIC_Ip_Return(nic_no):
 
     #Subnet List API 호출
     response = send_request(url=url + path, headers=http_header, method=method)
-    nic_data_json = json.loads(response)
+    bs_data_json = json.loads(response)
 
-    response = nic_data_json["getNetworkInterfaceDetailResponse"]['networkInterfaceList']
-    extracted_nic_list= []
-    for data in response:
-        privIP = data.get("ip")
-        extracted_nic_list.append({
-          "PrivateIP": privIP
-      })
+    bs_response = bs_data_json["getBlockStorageInstanceListResponse"]['blockStorageInstanceList']
+    extracted_bs_list= []
+    for data in bs_response:
+        bs_size = data.get("blockStorageSize")
+        dev_name = data.get("deviceName")
+        real_bs_size = int(bs_size / (1024 ** 3))
+        extracted_bs_list.append({
+          "BlockStorage_Name": data.get("blockStorageName"),
+          "Device_name": dev_name,
+          "BlockStorage_Size": f"{real_bs_size}GB"
+        })
 
-    return extracted_nic_list
+    return extracted_bs_list
+  

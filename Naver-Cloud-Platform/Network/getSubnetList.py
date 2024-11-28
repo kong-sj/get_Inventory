@@ -6,7 +6,7 @@ sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 # from getVPCList import vpc_List
 from Auth.signature import make_signature
 from send_request import send_request
-from Auth.auth_Key import ncloud_accesskey, ncloud_secretkey
+from Auth.auth_Key import ncloud_accesskey, ncloud_secretkey, public
 
 def get_Subnet_List():
     # unix timestamp 설정
@@ -17,10 +17,10 @@ def get_Subnet_List():
     method = "GET"
 
     # API 서버 정보
-    url = "https://fin-ncloud.apigw.fin-ntruss.com"
+    url = public
 
     # API URL 서버 목록 조회
-    path = "/vpc/v2/getSubnetList?regionCode=FKR&responseFormatType=json"
+    path = "/vpc/v2/getSubnetList?regionCode=KR&responseFormatType=json"
 
     # http 호출 헤더값 설정
     http_header = {
@@ -60,6 +60,3 @@ def subnet_Name_Return(subnet_no):
     if subnet:
         return subnet["subnet_name"]
     return None
-  
-subnet_data = subnet_Name_Return("40569")
-print(subnet_data)
