@@ -3,30 +3,29 @@ import os
 import time
 import json
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
-from Auth.auth_Key import ncloud_accesskey, ncloud_secretkey, public
+from Auth.auth_Key import ncloud_accesskey, ncloud_secretkey, public, financial
 from Auth.signature import make_signature
 from send_request import send_request
 from Network.getVPCList import vpc_Name_Return
 from Network.getSubnetList import subnet_Name_Return
 from Network.getNetworkInterfaceList import NIC_Ip_Return
 from Storage.getStorageInstance import get_BlockStorageInstnace
-from getServerImageProductList import get_OS_Release
+from ServerImage.getServerImageProductList import get_OS_Release
 
 def get_Server_List():
+
     # unix timestamp 설정
     timestamp = int(time.time() * 1000)
     timestamp = str(timestamp)
-
-    # Ncloud API Key 설정
 
     # 암호화 문자열 생성을 위한 기본값 설정
     method = "GET" 
 
     # API 서버 정보
-    url = public # "https://ncloud.apigw.ntruss.com"
+    url = public
 
     # API URL 서버 목록 조회
-    path = "/vserver/v2/getServerInstanceList?regionCode=KR&responseFormatType=json"
+    path = f"/vserver/v2/getServerInstanceList?regionCode=KR&responseFormatType=json"
 
     # http 호출 헤더값 설정
     http_header = {
@@ -57,6 +56,7 @@ def get_Server_List():
         hypervisor_Type = server.get("hypervisorType")
         server_image_productCode = server.get("serverImageProductCode")
         os_release_name = get_OS_Release(server_image_productCode)
+        memory_Size = int(memSize / (1024 ** 3))
         extracted_server.append({
           "vpc_name": vpc_name,
           "subnet_name": subnet_name,
@@ -65,12 +65,10 @@ def get_Server_List():
           "Private_IP": priv_ip[0]["PrivateIP"],
           "Spec": spec_Code,
           "CPU": cpuCount,
-          "Memory": memSize,
+          "Memory": memory_Size,
           "Key Name": pemKeyName,
           "Block Storage": block_storage,
           "Hypervisor_Type": hypervisor_Type,
           "OS_Release": os_release_name
         })
     return extracted_server
-data_svr_list = get_Server_List()
-print(data_svr_list)

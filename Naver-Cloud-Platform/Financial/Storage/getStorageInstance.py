@@ -5,11 +5,11 @@ import json
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 from Auth.signature import make_signature
 from send_request import send_request
-from Auth.auth_Key import ncloud_accesskey, ncloud_secretkey, public
+from Auth.auth_Key import ncloud_accesskey, ncloud_secretkey, financial_svr
 
 
-def get_BlockStorageInstnace(bs_name):
-        # unix timestamp 설정
+def get_BlockStorageInstnace(server_name):
+    # unix timestamp 설정
     timestamp = int(time.time() * 1000)
     timestamp = str(timestamp)
 
@@ -17,10 +17,10 @@ def get_BlockStorageInstnace(bs_name):
     method = "GET"
 
     # API 서버 정보
-    url = public
+    url = financial_svr
 
     # API URL 서버 목록 조회
-    path = f"/vserver/v2/getBlockStorageInstanceList?regionCode=KR&responseFormatType=json&serverName={bs_name}"
+    path = f"/vserver/v2/getBlockStorageInstanceList?regionCode=FKR&responseFormatType=json&serverName={server_name}"
 
     # http 호출 헤더값 설정
     http_header = {
@@ -46,4 +46,3 @@ def get_BlockStorageInstnace(bs_name):
         })
 
     return extracted_bs_list
-  

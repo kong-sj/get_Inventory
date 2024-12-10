@@ -55,5 +55,13 @@ def LB_List():
       })
 
     return extracted_lb_list
-lb_List_data = LB_List()
-print(lb_List_data)
+
+
+import os
+import sys
+sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
+from Server.getServerList import get_Server_List
+
+
+data = get_Server_List()
+print(data)
