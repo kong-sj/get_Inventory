@@ -115,11 +115,3 @@ def combine_data():
         data[route_no]["route_target_data"].append(item)
 
     return data
-
-
-# # 실행 및 결과 확인
-# combined_data = combine_data()
-# for route_no, details in combined_data.items():
-#     print(f"Route No: {route_no}")
-#     pprint(details)
-#     print("\n" + "="*40 + "\n")
